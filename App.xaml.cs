@@ -6,7 +6,7 @@
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Views.ListaProduto());
+            MainPage = new NavigationPage(new Views.TelaInicial());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
