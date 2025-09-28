@@ -1,4 +1,5 @@
 using MauiAppMinhasCompras.Models;
+using login;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -13,7 +14,7 @@ public partial class TelaInicial : ContentPage
     {
 		try
 		{
-            App.Current.MainPage = new ListaProduto();
+            App.Current.MainPage = new Login();
 
         }
         catch(Exception ex)

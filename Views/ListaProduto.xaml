@@ -2,11 +2,59 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.ListaProduto"
-             Title="ListaProduto">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             NavigationPage.HasNavigationBar="True"
+             Title="Minhas Compras" 
+             Background="{StaticResource Gray100}">
+    
+        <ContentPage.ToolbarItems>
+            <ToolbarItem Text="Somar" />
+            <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
+
+        </ContentPage.ToolbarItems>
+    
+    <VerticalStackLayout >
+        <Grid RowDefinitions="Auto, Auto" 
+       ColumnDefinitions="Auto, Auto"
+       Padding="10"
+       ColumnSpacing="10"
+       RowSpacing="10"
+       VerticalOptions="Center"
+       HorizontalOptions="Center">
+
+            <Label Grid.Row="0" Grid.Column="1"
+          x:Name="lbl_boasvindas"
+     Text="Lista produto"  
+     HorizontalOptions="Center" 
+     FontSize="14"
+        TextColor="Coral" />
+
+            <Button Grid.Row="0" Grid.Column="0"  
+         Text="Voltar"
+          BackgroundColor="Coral"
+          BorderColor="White"
+          BorderWidth="2"
+          Clicked="Button_Clicked"
+             FontSize="14">
+
+            </Button>
+        </Grid>
+
+        <Frame BackgroundColor="{StaticResource Gray100}">
+
+            <VerticalStackLayout HorizontalOptions="Center">
+
+                <Label Text=" Produtos"
+                     VerticalOptions="Center" 
+                     HorizontalOptions="Center"
+                     FontSize="28"
+                     TextColor="Black"/>
+
+                <Button Text="Edite"
+                        Clicked="Button_Clicked_1"/>
+
+
+            </VerticalStackLayout>
+
+        </Frame>
     </VerticalStackLayout>
 </ContentPage>

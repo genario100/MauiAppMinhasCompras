@@ -10,39 +10,46 @@ namespace MauiAppMinhasCompras.Helpers
 {
     public class SQLiteDataBaseHelpers
     {
-        private readonly SQLiteAsyncConnection _database;
+        private readonly SQLiteAsyncConnection _connn;
 
         public SQLiteDataBaseHelpers(string dbPath)
         {
-            _database = new SQLiteAsyncConnection(dbPath);
-            _database.CreateTableAsync<Produto>().Wait();
+            _connn = new SQLiteAsyncConnection(dbPath);
+            _connn.CreateTableAsync<Produto>().Wait();
         }
 
-        public Task<List<Produto>> GetProdutosAsync()
+        public Task<int> Insert(Produto p)
         {
-            return _database.Table<Produto>().ToListAsync();
+           return _connn.InsertAsync(p);
         }
 
-        public Task<Produto> GetProdutoAsync(int id)
+        public Task<List<Produto>> Update(Produto p)
         {
-            return _database.Table<Produto>().Where(i => i.Id == id).FirstOrDefaultAsync();
+            string sql = " UPDATE Produto SET Descricao = ?, Preco = ?, Quantidade = ?, Categoria = ?, DataCompra = ? WHERE Id = ?";
+
+            return _connn.QueryAsync<Produto>(
+                
+                sql, p.Descricao, p.Preco, p.Quantidade,   p.Categoria, p.DataCompra, p.Id
+
+             );
         }
 
-        public Task<int> SaveProdutoAsync(Produto produto)
+        public Task<int> Delete(int id)
         {
-            if (produto.Id != 0)
-            {
-                return _database.UpdateAsync(produto);
-            }
-            else
-            {
-                return _database.InsertAsync(produto);
-            }
+          return  _connn.Table<Produto>().DeleteAsync(i=> i.Id == id);
         }
 
-        public Task<int> DeleteProdutoAsync(Produto produto)
+        public Task<List<Produto>> GetAll()
         {
-            return _database.DeleteAsync(produto);
+           return _connn.Table<Produto>().ToListAsync();
         }
+
+        public Task<List<Produto>> Search(string q)
+        {
+            string sql = " SELECT * Produto SET WHERE Descricao LIKE '% " + q + " %'";
+
+            return _connn.QueryAsync<Produto>(sql);
+        }
+
     }
 }
