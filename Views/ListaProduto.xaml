@@ -6,55 +6,79 @@
              Title="Minhas Compras" 
              Background="{StaticResource Gray100}">
     
-        <ContentPage.ToolbarItems>
-            <ToolbarItem Text="Somar" />
-            <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
-
-        </ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1" />
+        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
+    </ContentPage.ToolbarItems>
     
-    <VerticalStackLayout >
+    <VerticalStackLayout>
         <Grid RowDefinitions="Auto, Auto" 
-       ColumnDefinitions="Auto, Auto"
-       Padding="10"
-       ColumnSpacing="10"
-       RowSpacing="10"
-       VerticalOptions="Center"
-       HorizontalOptions="Center">
+              ColumnDefinitions="Auto, Auto"
+              Padding="10"
+              ColumnSpacing="10"
+              RowSpacing="10"
+              VerticalOptions="Center"
+              HorizontalOptions="Center">
 
-            <Label Grid.Row="0" Grid.Column="1"
-          x:Name="lbl_boasvindas"
-     Text="Lista produto"  
-     HorizontalOptions="Center" 
-     FontSize="14"
-        TextColor="Coral" />
+            <Label Grid.Row="0" Grid.Column="0"
+                   x:Name="lbl_boasvindas"
+                   Text="Lista produto"  
+                   HorizontalOptions="Center" 
+                   FontSize="14"
+                   TextColor="Coral" />
 
-            <Button Grid.Row="0" Grid.Column="0"  
-         Text="Voltar"
-          BackgroundColor="Coral"
-          BorderColor="White"
-          BorderWidth="2"
-          Clicked="Button_Clicked"
-             FontSize="14">
-
-            </Button>
         </Grid>
 
         <Frame BackgroundColor="{StaticResource Gray100}">
-
             <VerticalStackLayout HorizontalOptions="Center">
-
                 <Label Text=" Produtos"
-                     VerticalOptions="Center" 
-                     HorizontalOptions="Center"
-                     FontSize="28"
-                     TextColor="Black"/>
+                       VerticalOptions="Center" 
+                       HorizontalOptions="Center"
+                       FontSize="28"
+                       TextColor="Black"/>
 
-                <Button Text="Edite"
-                        Clicked="Button_Clicked_1"/>
-
+                <SearchBar x:Name="txt_search" 
+                           Placeholder="Busca Produto"
+                           TextChanged="txt_search_TextChanged"/>
+                
+                <!-- Corrigido: Removido MenuItem do ViewCell, adicione MenuItem diretamente ao ListView.ItemTemplate -->
+                <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
+                    <ListView.Header>
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+                            <Label Grid.Column="0" Text="ID"/>
+                            <Label Grid.Column="1" Text="Descricao"/>
+                            <Label Grid.Column="2" Text="Preço"/>
+                            <Label Grid.Column="3" Text="Qtd"/>
+                            <Label Grid.Column="4" Text="Total"/>
+                           
+                        </Grid>
+                    </ListView.Header>
+                    
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Remover"
+                                              Clicked="MenuItem_Clicked"
+                                              CommandParameter="{Binding Id}" />
+                                </ViewCell.ContextActions>
+                                <Grid ColumnDefinitions="*, *, *, *, *">
+                                    <Label Grid.Column="0" Text="{Binding Id}" />
+                                    <Label Grid.Column="1" Text="{Binding Descricao}" />
+                                    <Label Grid.Column="2" Text="{Binding Preco}" />
+                                    <Label Grid.Column="3" Text="{Binding Quantidade}" />
+                                    <Label Grid.Column="4" Text="{Binding Total}" />
+                                   
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
             </VerticalStackLayout>
-
         </Frame>
+        <Button Text="Novo"
+                Clicked="Button_Clicked_1"/>
     </VerticalStackLayout>
 </ContentPage>
+   

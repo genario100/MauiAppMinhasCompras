@@ -14,7 +14,8 @@ public partial class TelaInicial : ContentPage
     {
 		try
 		{
-            App.Current.MainPage = new Login();
+            //App.Current.MainPage = new Login();
+			await Navigation.PushAsync(new Login());
 
         }
         catch(Exception ex)

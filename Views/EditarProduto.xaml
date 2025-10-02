@@ -2,19 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.EditarProduto"
-             Title="EditarProduto">
+             Title="{Binding Descricao}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Somar"/>
-        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked"/>
+        <ToolbarItem Text="Salvar"/>
+        <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
-    
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+
+    <VerticalStackLayout
+    Padding="10"
+    Spacing="10"
+    VerticalOptions="Start">
+
+        <Label Text="Descrição" />
+        <Entry x:Name="txt_descricao" Text = "{Binding Descricao}" />
+
+        <Label Text="Quantidade" />
+        <Entry x:Name="txt_Quantidade" Text = "{Binding Quantidade}" />
+
+        <Label Text="Preço Unitario" />
+        <Entry x:Name="txt_preco_unitario" Text="{Binding Preco}" />
+
     </VerticalStackLayout>
-    
-    
+
+
 </ContentPage>

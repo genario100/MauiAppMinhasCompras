@@ -6,6 +6,7 @@ namespace login;
 public partial class Login : ContentPage
 {
     private object txtUsuario;
+    
 
     public Login()
 	{
@@ -36,10 +37,24 @@ try
             dados_digitados.Senha == i.Senha))
             {
                await SecureStorage.Default.SetAsync("Usuario_logado", dados_digitados.Usuario);
+                //MainPage = new NavigationPage(new Views.EditarProduto());
+                //App.Current.MainPage = new ListaProduto();
 
-                App.Current.MainPage = new ListaProduto();
+                try
+                {
+                    await Navigation.PushAsync(new ListaProduto());
+                    //App.Current.MainPage = new ListaProduto();
+                    
+                  //await Navigation.PushAsync(new EditarProduto());
 
-            }else if (txt_Usuarioo.Text == null || txt_Senhaa.Text == null)
+                }
+                catch (Exception ex)
+                {
+                    DisplayAlert("Ops!", ex.Message, "OK!");
+                }
+
+            }
+            else if (txt_Usuarioo.Text == null || txt_Senhaa.Text == null)
             {
                await DisplayAlert("Ops", "Preencha todos os campos", "Fechar");
                 return;
