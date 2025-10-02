@@ -11,14 +11,20 @@
         Spacing="10"
         VerticalOptions="Start">
 
-            <Label Text="Descrição" />
+        <Image
+              Source="frente.png"
+              HeightRequest="185"
+              Aspect="AspectFit"
+              SemanticProperties.Description="dot net bot in a race car number eight" />
+
+        <Label Text="Descrição" />
             <Entry x:Name="txt_descricao" />
 
             <Label Text="Quantidade" />
-            <Entry x:Name="txt_Quantidade" />
+            <Entry x:Name="txt_Quantidade" Keyboard="Numeric" />
 
             <Label Text="Preço Unitario" />
-            <Entry x:Name="txt_preco_unitario" />
+            <Entry x:Name="txt_preco_unitario" Keyboard="Numeric" />
 
     </VerticalStackLayout>
 </ContentPage>

@@ -25,12 +25,19 @@
                    Text="Lista produto"  
                    HorizontalOptions="Center" 
                    FontSize="14"
-                   TextColor="Coral" />
+                   TextColor="Black" />
 
         </Grid>
 
         <Frame BackgroundColor="{StaticResource Gray100}">
             <VerticalStackLayout HorizontalOptions="Center">
+
+                <Image
+                      Source="frente.png"
+                      HeightRequest="185"
+                      Aspect="AspectFit"
+                      SemanticProperties.Description="dot net bot in a race car number eight" />
+                
                 <Label Text=" Produtos"
                        VerticalOptions="Center" 
                        HorizontalOptions="Center"
@@ -77,8 +84,23 @@
 
             </VerticalStackLayout>
         </Frame>
-        <Button Text="Novo"
-                Clicked="Button_Clicked_1"/>
+        <Grid ColumnDefinitions="*, *" >
+            <Label Grid.Column="0" 
+                   Text=" Total"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    FontSize="28"
+                    TextColor="Black"/>
+
+            <Label Grid.Column="1"  
+                   Text="somar"
+                   x:Name="txt_Somar"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center"
+                    FontSize="28"
+                    TextColor="Black"/>
+        </Grid>
     </VerticalStackLayout>
+    
 </ContentPage>
    

@@ -100,8 +100,9 @@ public partial class ListaProduto : ContentPage
         List<Produto> tmp = await App.Db.Search(q);
 
         tmp.ForEach(i => lista.Add(i));
-        
-        
+        txtsomar();
+
+
     }
 
     private void ToolbarItem_Clicked_1(object sender, EventArgs e)
@@ -111,7 +112,9 @@ public partial class ListaProduto : ContentPage
         double soma = lista.Sum(i => i.Total);
         string msg = $"O total é {soma:C}";
         DisplayAlert("Total dos produtos", msg, "OK");
-        }catch (Exception ex)
+        txtsomar();
+        }
+        catch (Exception ex)
         {
             DisplayAlert("Ops!", ex.Message, "OK!");
         }
@@ -131,7 +134,8 @@ public partial class ListaProduto : ContentPage
             {
                 await App.Db.Delete(p.Id);
                 lista.Remove(p);
-            }
+                    txtsomar();
+                }
         }
         }catch (Exception ex)
         {
@@ -150,12 +154,26 @@ public partial class ListaProduto : ContentPage
             {
                 BindingContext = p
             });
-            
+          
 
         }
         catch (Exception ex)
         {
             DisplayAlert("Ops!", ex.Message, "OK");
+        }
+    }
+
+    private void txtsomar()
+    {
+        try
+        {
+            double soma = lista.Sum(i => i.Total);
+            string msg = $"{soma:C}";
+            txt_Somar.Text = msg;
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops!", ex.Message, "OK!");
         }
     }
 }

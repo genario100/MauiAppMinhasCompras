@@ -5,23 +5,29 @@
              Title="{Binding Descricao}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Salvar"/>
+        <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked_1"/>
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
     <VerticalStackLayout
-    Padding="10"
-    Spacing="10"
-    VerticalOptions="Start">
+                        Padding="10"
+                        Spacing="10"
+                        VerticalOptions="Start">
+
+        <Image
+              Source="frente.png"
+              HeightRequest="185"
+              Aspect="AspectFit"
+              SemanticProperties.Description="dot net bot in a race car number eight" />
 
         <Label Text="Descrição" />
         <Entry x:Name="txt_descricao" Text = "{Binding Descricao}" />
 
         <Label Text="Quantidade" />
-        <Entry x:Name="txt_Quantidade" Text = "{Binding Quantidade}" />
+        <Entry x:Name="txt_Quantidade" Text = "{Binding Quantidade}" Keyboard="Numeric" />
 
         <Label Text="Preço Unitario" />
-        <Entry x:Name="txt_preco_unitario" Text="{Binding Preco}" />
+        <Entry x:Name="txt_preco_unitario" Text="{Binding Preco}" Keyboard="Numeric" />
 
     </VerticalStackLayout>
 
