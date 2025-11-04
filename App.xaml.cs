@@ -2,6 +2,7 @@
 using login;
 using MauiAppMinhasCompras.Helpers;
 using MauiAppMinhasCompras.Views;
+using System.Globalization;
 
 namespace MauiAppMinhasCompras
 {
@@ -24,7 +25,9 @@ namespace MauiAppMinhasCompras
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new TelaInicial());
+            //Thread.CurrentThread.CurrentCulture = new CultureInfo("pt_BR");
+
+            MainPage = new NavigationPage(new Login());
 
         }
 
@@ -32,8 +35,8 @@ namespace MauiAppMinhasCompras
         {
             var window = base.CreateWindow(activationState);
             window.Title = "Minhas Compras";
-            window.Width = 400;
-            window.Height = 900;
+            window.Width = 500;
+            window.Height = 1000;
             return window;
         }
     }

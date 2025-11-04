@@ -5,7 +5,7 @@ using MauiAppMinhasCompras.Views;
 namespace login;
 public partial class Login : ContentPage
 {
-    private object txtUsuario;
+    //private object txtUsuario;
     
 
     public Login()

@@ -4,15 +4,25 @@
              x:Class="MauiAppMinhasCompras.Views.ListaProduto"
              NavigationPage.HasNavigationBar="True"
              Title="Minhas Compras" 
-             Background="{StaticResource Gray100}">
+             Background="{StaticResource PrimaryDark}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1" />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
-    
-    <VerticalStackLayout>
-        <Grid RowDefinitions="Auto, Auto" 
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="VerticalTextAlignment" Value="Center">
+                    
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <StackLayout>
+            <Grid RowDefinitions="Auto, Auto" 
               ColumnDefinitions="Auto, Auto"
               Padding="10"
               ColumnSpacing="10"
@@ -20,87 +30,100 @@
               VerticalOptions="Center"
               HorizontalOptions="Center">
 
-            <Label Grid.Row="0" Grid.Column="0"
+                <Label Grid.Row="0" Grid.Column="0"
                    x:Name="lbl_boasvindas"
                    Text="Lista produto"  
                    HorizontalOptions="Center" 
-                   FontSize="14"
-                   TextColor="Black" />
+                   FontSize="20"
+                   TextColor="White" />
 
-        </Grid>
+            </Grid>
 
-        <Frame BackgroundColor="{StaticResource Gray100}">
-            <VerticalStackLayout HorizontalOptions="Center">
 
-                <Image
-                      Source="frente.png"
-                      HeightRequest="185"
-                      Aspect="AspectFit"
-                      SemanticProperties.Description="dot net bot in a race car number eight" />
+            <StackLayout HorizontalOptions="Center">
+
                 
+
                 <Label Text=" Produtos"
                        VerticalOptions="Center" 
                        HorizontalOptions="Center"
                        FontSize="28"
-                       TextColor="Black"/>
+                       TextColor="White"/>
 
                 <SearchBar x:Name="txt_search" 
                            Placeholder="Busca Produto"
-                           TextChanged="txt_search_TextChanged"/>
-                
+                           TextChanged="txt_search_TextChanged"
+                           Margin="10,0,10,0"
+                           BackgroundColor="{StaticResource Gray100}"/>
+
                 <!-- Corrigido: Removido MenuItem do ViewCell, adicione MenuItem diretamente ao ListView.ItemTemplate -->
-                <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
-                    <ListView.Header>
-                        <Grid ColumnDefinitions="*, *, *, *, *">
-                            <Label Grid.Column="0" Text="ID"/>
-                            <Label Grid.Column="1" Text="Descricao"/>
-                            <Label Grid.Column="2" Text="Preço"/>
-                            <Label Grid.Column="3" Text="Qtd"/>
-                            <Label Grid.Column="4" Text="Total"/>
-                           
-                        </Grid>
-                    </ListView.Header>
-                    
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Text="Remover"
+
+                <Frame 
+                     BackgroundColor="{StaticResource Gray100}" 
+                     VerticalOptions="FillAndExpand"
+                     Padding="0"
+                     Margin="10">
+
+
+                    <ListView x:Name="lst_produtos" 
+                          IsPullToRefreshEnabled="True"
+                          Refreshing="lst_produtos_Refreshing"
+                          ItemSelected="lst_produtos_ItemSelected">
+                        <ListView.Header>
+                            <Grid ColumnDefinitions="30, 200, 80, 50, 90"
+                              Margin="0" Padding="7"
+                              BackgroundColor="{StaticResource Primary}">
+                                <Label Grid.Column="0" Text="ID"  FontAttributes="Bold" TextColor="White" FontSize="22"/>
+                                <Label Grid.Column="1" Text="Descricao" FontAttributes="Bold" TextColor="White" FontSize="22"/>
+                                <Label Grid.Column="2" Text="Preço" FontAttributes="Bold" TextColor="White" FontSize="22"/>
+                                <Label Grid.Column="3" Text="Qtd" FontAttributes="Bold" TextColor="White" FontSize="22"/>
+                                <Label Grid.Column="4" Text="Total" FontAttributes="Bold" TextColor="White" FontSize="22"/>
+
+                            </Grid>
+                        </ListView.Header>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Text="Remover"
                                               Clicked="MenuItem_Clicked"
                                               CommandParameter="{Binding Id}" />
-                                </ViewCell.ContextActions>
-                                <Grid ColumnDefinitions="*, *, *, *, *">
-                                    <Label Grid.Column="0" Text="{Binding Id}" />
-                                    <Label Grid.Column="1" Text="{Binding Descricao}" />
-                                    <Label Grid.Column="2" Text="{Binding Preco}" />
-                                    <Label Grid.Column="3" Text="{Binding Quantidade}" />
-                                    <Label Grid.Column="4" Text="{Binding Total}" />
-                                   
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                                    </ViewCell.ContextActions>
+                                    <Grid ColumnDefinitions="30, 200, 80, 50, 90">
+                                        <Label Grid.Column="0" Text="{Binding Id}"  Padding="5" />
+                                        <Label Grid.Column="1" Text="{Binding Descricao}" />
+                                        <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{}{0:c}'}" />
+                                        <Label Grid.Column="3" Text="{Binding Quantidade}" />
+                                        <Label Grid.Column="4" Text="{Binding Total, StringFormat='{}{0:c}'}" />
 
-            </VerticalStackLayout>
-        </Frame>
-        <Grid ColumnDefinitions="*, *" >
-            <Label Grid.Column="0" 
-                   Text=" Total"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center"
-                    FontSize="28"
-                    TextColor="Black"/>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
-            <Label Grid.Column="1"  
-                   Text="somar"
-                   x:Name="txt_Somar"
-                    VerticalOptions="Center" 
-                    HorizontalOptions="Center"
-                    FontSize="28"
-                    TextColor="Black"/>
-        </Grid>
-    </VerticalStackLayout>
-    
+                </Frame>
+
+            </StackLayout>
+
+            <Grid ColumnDefinitions="*, *" >
+                <Label Grid.Column="0" 
+                               Text=" Total"
+                                VerticalOptions="Center" 
+                                HorizontalOptions="Center"
+                                FontSize="28"
+                                TextColor="White"/>
+
+                <Label Grid.Column="1"  
+                                   Text="somar"
+                                   x:Name="txt_Somar"
+                                    VerticalOptions="Center" 
+                                    HorizontalOptions="Center"
+                                    FontSize="28"
+                                    TextColor="White"/>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
    

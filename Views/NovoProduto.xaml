@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.NovoProduto"
-             Title="NovoProduto">
+             Title="NovoProduto"
+             Background="{StaticResource PrimaryDark}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Salvar" Clicked="ToolbarItem_Clicked_1" />
     </ContentPage.ToolbarItems>
@@ -17,14 +18,23 @@
               Aspect="AspectFit"
               SemanticProperties.Description="dot net bot in a race car number eight" />
 
-        <Label Text="Descrição" />
-            <Entry x:Name="txt_descricao" />
+        <Label Text="Descrição" 
+               Padding="10"
+                TextColor="White"/>
+            <Entry x:Name="txt_descricao"
+                   TextColor="White"/>
 
-            <Label Text="Quantidade" />
-            <Entry x:Name="txt_Quantidade" Keyboard="Numeric" />
+            <Label Text="Quantidade" 
+                   Padding="10"
+                    TextColor="White"/>
+            <Entry x:Name="txt_Quantidade" Keyboard="Numeric" 
+                    TextColor="White"/>
 
-            <Label Text="Preço Unitario" />
-            <Entry x:Name="txt_preco_unitario" Keyboard="Numeric" />
+            <Label Text="Preço Unitario" 
+                   Padding="10"
+                    TextColor="White"/>
+            <Entry x:Name="txt_preco_unitario" Keyboard="Numeric"
+                    TextColor="White"/>
 
     </VerticalStackLayout>
 </ContentPage>

@@ -23,19 +23,32 @@ public partial class ListaProduto : ContentPage
             usuarioLogado = await SecureStorage.Default.GetAsync("Usuario_logado");
             lbl_boasvindas.Text = $"Bem vindo(a), {usuarioLogado}";
             //user_logado();
+            txtsomar();
 
         }).Wait();
     }
 
     protected override async void OnAppearing()
     {
-        lista.Clear();
-
-        List<Produto> tmp = await App.Db.GetAll();
-
-        tmp.ForEach(i => lista.Add(i));
+        try
         {
-            
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.GetAll();
+
+            tmp.ForEach(i => lista.Add(i));
+            {
+
+            }
+            txtsomar();
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops!", ex.Message, "OK!");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -54,6 +67,10 @@ public partial class ListaProduto : ContentPage
             {
                 DisplayAlert("Ops!", ex.Message, "OK!");
             }
+            finally
+            {
+                lst_produtos.IsRefreshing = false;
+            }
         }
     }
 
@@ -66,6 +83,10 @@ public partial class ListaProduto : ContentPage
         }catch (Exception ex)
         {
             DisplayAlert("Ops!", ex.Message, "OK!");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -80,6 +101,10 @@ public partial class ListaProduto : ContentPage
         {
             DisplayAlert("Ops!", ex.Message, "OK!");
         }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
+        }
     }
 
     // Adicione este método para tratar o evento do MenuItem "Remover"
@@ -92,15 +117,31 @@ public partial class ListaProduto : ContentPage
 
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-        string q = e.NewTextValue;
+        
+
+        try
+        {
+            string q = e.NewTextValue;
+
+            lst_produtos.IsRefreshing = false;
+
+            lista.Clear();
+
+             List<Produto> tmp = await App.Db.Search(q);
+
+            tmp.ForEach(i => lista.Add(i));
+            txtsomar();
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops!", ex.Message, "OK!");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
+        }
 
 
-        lista.Clear();
-
-        List<Produto> tmp = await App.Db.Search(q);
-
-        tmp.ForEach(i => lista.Add(i));
-        txtsomar();
 
 
     }
@@ -118,7 +159,11 @@ public partial class ListaProduto : ContentPage
         {
             DisplayAlert("Ops!", ex.Message, "OK!");
         }
-        
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
+        }
+
     }
 
     private async void MenuItem_Clicked(object sender, EventArgs e)
@@ -141,7 +186,11 @@ public partial class ListaProduto : ContentPage
         {
             DisplayAlert("Ops!", ex.Message, "OK");
         }
-        
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
+        }
+
     }
 
     private void lst_produtos_ItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -154,12 +203,16 @@ public partial class ListaProduto : ContentPage
             {
                 BindingContext = p
             });
-          
+            txtsomar();
 
         }
         catch (Exception ex)
         {
             DisplayAlert("Ops!", ex.Message, "OK");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -174,6 +227,34 @@ public partial class ListaProduto : ContentPage
         catch (Exception ex)
         {
             DisplayAlert("Ops!", ex.Message, "OK!");
+        }
+        finally 
+            {
+            lst_produtos.IsRefreshing = false;
+        }
+
+    }
+
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+        try
+        {
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.GetAll();
+
+            tmp.ForEach(i => lista.Add(i));
+            {
+
+            }
+            txtsomar();
+        }
+        catch (Exception ex)
+        {
+            DisplayAlert("Ops!", ex.Message, "OK!");
+        }finally 
+            {
+            lst_produtos.IsRefreshing = false;
         }
     }
 }
